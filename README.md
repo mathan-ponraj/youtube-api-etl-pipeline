@@ -1,141 +1,39 @@
-# YouTube API Data Migration & ETL Pipeline
+# YouTube Data Migration and ETL Pipeline
 
 ## Project Overview
-This project demonstrates an automated **ETL (Extract, Transform, Load) pipeline** that collects and processes trending video data from the YouTube Data API.
+This project is an automated ETL (Extract, Transform, Load) system designed to migrate data from the YouTube Data API into a structured SQL environment. I built this to solve the challenge of handling large-scale, nested JSON responses and converting them into high-quality, query-ready data for business analysis.
 
-The system extracts raw data from the API, processes **nested JSON responses**, cleans and transforms the data, and stores the structured dataset in a **SQL database** for further analysis.
+## The Problem
+Raw data from modern APIs is often deeply nested and messy. To make YouTube trending data actually useful for a business, it needs to be extracted reliably, parsed from complex JSON structures, cleaned for consistency, and stored in a relational database. Manual exports are too slow; an automated pipeline is the only scalable solution.
 
-The main goal of this project was to build a **reliable data pipeline** that converts raw API data into structured datasets that can be easily queried and analyzed.
+## My Technical Workflow
 
----
+1. Automated Extraction: I integrated the YouTube Data API v3 to programmatically fetch metadata, including engagement metrics (views, likes, comments) and content categories.
+2. JSON Transformation: Since API responses are nested, I developed a parsing logic in Python to flatten the JSON objects into a tabular format, ensuring no data loss during the conversion.
+3. Data Cleaning: I implemented a transformation layer to handle missing values, standardize date-time formats, and remove duplicate entries.
+4. Database Loading: Using SQLAlchemy, I built the "Load" portion of the pipeline to migrate the processed data into a SQL database. This allows for fast, relational queries that aren't possible with raw JSON.
 
-## Problem Statement
-YouTube generates a large amount of video data every day. However, the data returned by the API is in **nested JSON format**, which is difficult to analyze directly.
+## System Architecture
+**API Extraction** (JSON) ➔ **Python Processing** (Pandas) ➔ **Data Transformation** ➔ **SQL Storage** (SQLAlchemy)
 
-To make the data useful, the raw API responses must be:
+## Key Features
+- Dynamic API Handling: Manages API requests and handles data points like Video Title, Channel, and Category.
+- Structured Storage: Replaces unstructured files with a robust SQL schema.
+- Scalability: The Python-based logic is designed to be easily scheduled for daily or hourly data syncs.
 
-- Collected automatically from the API  
-- Parsed from nested JSON structures  
-- Cleaned and validated  
-- Converted into structured tables  
-- Stored in a relational database  
+## Tools and Technologies
+- Language: Python
+- Data Libraries: Pandas, JSON, NumPy
+- Database & ORM: SQL, SQLAlchemy
+- External Integration: YouTube Data API v3 (Google Cloud Console)
 
-This project solves these challenges by building a **Python-based ETL pipeline**.
-
----
-
-## System Workflow
-
-API Extraction → JSON Processing → Data Cleaning → Data Transformation → SQL Storage
-
----
-
-## Data Extraction (API Integration)
-
-The project uses the **YouTube Data API** to collect trending video information.
-
-An API key created through **Google Cloud Console** is used to make automated API requests.
-
-The pipeline collects important fields such as:
-
-- Video Title  
-- Channel Name  
-- View Count  
-- Like Count  
-- Comment Count  
-- Video Category  
-- Publish Date  
-
-The API responses are returned in **JSON format**.
+## Future Goals
+To evolve this into a production-grade data platform, I plan to:
+- Containerize the pipeline using Docker for easier deployment.
+- Schedule the script using Apache Airflow or GitHub Actions for fully hands-off automation.
+- Build a monitoring layer to alert me if the API fails or data formats change.
 
 ---
-
-## JSON Data Processing
-
-The API responses contain **nested JSON objects**. Python scripts were used to parse and extract the required information.
-
-Key steps included:
-
-- Parsing JSON API responses  
-- Extracting nested attributes  
-- Converting JSON data into tabular format  
-- Handling missing or inconsistent values  
-
-This step transforms raw API responses into structured datasets.
-
----
-
-## Data Transformation and Cleaning
-
-After extracting the data, several preprocessing steps were applied:
-
-- Removing unnecessary attributes  
-- Handling missing values  
-- Standardizing column formats  
-- Preparing the dataset for database storage  
-
-These steps help ensure the dataset is **clean, consistent, and ready for analysis**.
-
----
-
-## Automated ETL Pipeline
-
-A Python-based **ETL pipeline** was built to automate the workflow.
-
-### Extract
-Data is collected automatically from the YouTube Data API.
-
-### Transform
-Python scripts process the JSON responses, clean the data, and convert it into structured tables.
-
-### Load
-The cleaned dataset is stored in a **SQL database** using **SQLAlchemy**, which allows efficient querying and analysis.
-
----
-
-## Data Storage
-
-The processed dataset is stored in a **relational SQL database**.  
-This makes it easy to run queries, perform aggregations, and analyze trends in the data.
-
----
-
-## Results
-
-### Automated Data Pipeline
-Developed an automated workflow to extract, transform, and load YouTube API data.
-
-### Structured Dataset
-Converted raw nested JSON responses into structured SQL tables.
-
-### Trend Analysis
-Created datasets that allow analysis of video engagement and trending content.
-
----
-
-## Technologies Used
-
-- Python  
-- Pandas  
-- SQL  
-- SQLAlchemy  
-- YouTube Data API  
-- JSON Data Processing  
-
----
-
-## Key Outcomes
-
-- Implemented **API-based automated data extraction**
-- Built a **Python ETL pipeline**
-- Processed and cleaned nested JSON API responses
-- Converted unstructured API data into structured SQL tables
-- Generated datasets for **YouTube trend analysis**
-
----
-
-## Future Improvements
-
-- Automate scheduled API data collection  
-- Build interactive dashboards for visualization  
-- Apply machine learning models for trend prediction  
+Developed by Mathan Ponraj
+CSE Graduate | Data & Systems Engineering
+[LinkedIn Profile](https://www.linkedin.com)
